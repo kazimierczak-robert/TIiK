@@ -77,6 +77,7 @@ namespace TIIK_1
 
         private void buttonWczytajplik_Click(object sender, EventArgs e)
         {
+            listView1.Items.Clear();
             zerujTablice();
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
