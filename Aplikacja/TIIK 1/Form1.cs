@@ -94,12 +94,16 @@ namespace TIIK_1
         }
         private void obliczIloscInformacji()
         {
-            double I_E = 0.0;
+            double I_E = 0.0D;
+            double P_E = 0.0D;
             //wzor 1.: I(E) = log2(1/P(E)) [b]
             for (int i = 0; i < tablicaZnakow.GetLength(0); i++)
             {
+                P_E = Double.Parse(tablicaZnakow[i, 2]);
+                //Check if 0
+                if (P_E == 0) continue;
                 //Math.Log(number, base)
-                I_E = Math.Log(1 / Double.Parse(tablicaZnakow[i, 2]), 2);
+                I_E = Math.Log(1 / P_E, 2);
                 //Add to listView
                 tablicaZnakow[i, 3] = I_E.ToString("F6");
             }
