@@ -18,6 +18,7 @@ namespace TIIK_1
         public Form1()
         {
             InitializeComponent();
+            this.Text = "Aplikacja TIIK";
         }
 
         // tablica przechowujaca wystapienia poszczegolnych liter
@@ -68,13 +69,16 @@ namespace TIIK_1
                     item.SubItems.Add(tablicaZnakow[i, 1]);
 
                     listView1.Items.Add(item);
-                    
+
+                    // uzupełnianie wykresu
+                    this.chart1.Series["Wystapienia"].Points.AddXY(tablicaZnakow[i, 0], tablicaZnakow[i, 1]);
                 }
+                
             }
+
         }
 
-        
-
+      
         private void buttonWczytajplik_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
@@ -84,14 +88,17 @@ namespace TIIK_1
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName, Encoding.GetEncoding("Windows-1250"));
                 String znaki = sr.ReadToEnd();
-                MessageBox.Show("wczytano");
+                MessageBox.Show("Plik wczytano pomyślnie.");
                 sr.Close();
 
                 podzielNaZnaki(znaki);
                 wypelnijListe();
-                textBox1.Text = "Znaki: " + (znaki.Length-Convert.ToInt32(tablicaZnakow[66,1])); //znaki bez spacji
-
+                label2.Text = (znaki.Length - Convert.ToInt32(tablicaZnakow[66, 1])).ToString();
+                //textBox1.Text = "Znaki: " + (znaki.Length-Convert.ToInt32(tablicaZnakow[66,1])); //znaki bez spacji
             }
+            
         }
+
+ 
     }
 }
