@@ -18,11 +18,12 @@ namespace TIIK_1
         public Form1()
         {
             InitializeComponent();
+            //listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.Head‌​erSize);//for proper look
             this.Text = "Aplikacja TIIK";
         }
 
         // tablica przechowujaca wystapienia poszczegolnych liter
-        string[,] tablicaZnakow = new string[85, 3];
+        string[,] tablicaZnakow = new string[85, 4];
 
         // tablica przechowujaca znaki ktore sa brane pod uwage przy zliczaniu, 85 elementow (0-84)
                         //   0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32
@@ -37,7 +38,8 @@ namespace TIIK_1
             {
                 tablicaZnakow[i, 0] = alfabet[i];
                 tablicaZnakow[i, 1] = "0";
-                tablicaZnakow[i, 2] = "0"; 
+                tablicaZnakow[i, 2] = "0";
+                tablicaZnakow[i, 3] = "0";//ilosc informacji
             }
         }
 
@@ -79,6 +81,7 @@ namespace TIIK_1
                     ListViewItem item = new ListViewItem(tablicaZnakow[i, 0]);
                     item.SubItems.Add(tablicaZnakow[i, 1]);
                     item.SubItems.Add(tablicaZnakow[i, 2]);
+                    item.SubItems.Add(tablicaZnakow[i, 3]);//ilosc informacji
 
                     listView1.Items.Add(item);
 
@@ -89,7 +92,18 @@ namespace TIIK_1
             }
 
         }
-
+        private void obliczIloscInformacji()
+        {
+            double I_E = 0.0;
+            //wzor 1.: I(E) = log2(1/P(E)) [b]
+            for (int i = 0; i < tablicaZnakow.GetLength(0); i++)
+            {
+                //Math.Log(number, base)
+                I_E = Math.Log(1 / Double.Parse(tablicaZnakow[i, 2]), 2);
+                //Add to listView
+                tablicaZnakow[i, 3] = I_E.ToString("F6");
+            }
+        }
       
         private void buttonWczytajplik_Click(object sender, EventArgs e)
         {
@@ -107,6 +121,7 @@ namespace TIIK_1
                 
                 podzielNaZnaki(znaki);
                 obliczPrawdopodobienstwo(dlugoscCiaguZnakow);
+                obliczIloscInformacji();
 
                 wypelnijListe();
                 label2.Text = (dlugoscCiaguZnakow - Convert.ToInt32(tablicaZnakow[66, 1])).ToString();

@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.buttonWczytajplik = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.Litera = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Wystapienia = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Prawdopodobienstwo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.Prawdopodobienstwo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.IloscInformacji = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,12 +61,13 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Litera,
             this.Wystapienia,
-            this.Prawdopodobienstwo});
+            this.Prawdopodobienstwo,
+            this.IloscInformacji});
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(275, 259);
+            this.listView1.Size = new System.Drawing.Size(407, 259);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -79,6 +81,11 @@
             // 
             this.Wystapienia.Text = "Liczba wystąpień";
             this.Wystapienia.Width = 100;
+            // 
+            // Prawdopodobienstwo
+            // 
+            this.Prawdopodobienstwo.Text = "Prawdopodobieństwo";
+            this.Prawdopodobienstwo.Width = 119;
             // 
             // openFileDialog1
             // 
@@ -106,33 +113,33 @@
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
-            this.chart1.Location = new System.Drawing.Point(293, 12);
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
+            legend9.Name = "Legend1";
+            this.chart1.Legends.Add(legend9);
+            this.chart1.Location = new System.Drawing.Point(436, 12);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.MarkerSize = 1;
-            series3.MarkerStep = 5;
-            series3.Name = "Wystapienia";
-            this.chart1.Series.Add(series3);
+            series9.ChartArea = "ChartArea1";
+            series9.Legend = "Legend1";
+            series9.MarkerSize = 1;
+            series9.MarkerStep = 5;
+            series9.Name = "Wystapienia";
+            this.chart1.Series.Add(series9);
             this.chart1.Size = new System.Drawing.Size(813, 358);
             this.chart1.TabIndex = 6;
             this.chart1.Text = "chart1";
             // 
-            // Prawdopodobienstwo
+            // IloscInformacji
             // 
-            this.Prawdopodobienstwo.Text = "Prawdopodobieństwo";
-            this.Prawdopodobienstwo.Width = 119;
+            this.IloscInformacji.Text = "Ilość informacji [bitów]";
+            this.IloscInformacji.Width = 115;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1118, 434);
+            this.ClientSize = new System.Drawing.Size(1261, 434);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -157,6 +164,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.ColumnHeader Prawdopodobienstwo;
+        private System.Windows.Forms.ColumnHeader IloscInformacji;
     }
 }
 
