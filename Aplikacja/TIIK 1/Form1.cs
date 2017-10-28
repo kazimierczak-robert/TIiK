@@ -84,8 +84,6 @@ namespace TIIK_1
 
                     listView1.Items.Add(item);
 
-                    // uzupełnianie wykresu
-                    this.chart1.Series["Wystapienia"].Points.AddXY(tablicaZnakow[i, 0], tablicaZnakow[i, 1]);
                 }
                 
             }
@@ -145,6 +143,20 @@ namespace TIIK_1
                 //textBox1.Text = "Znaki: " + (znaki.Length-Convert.ToInt32(tablicaZnakow[66,1])); //znaki bez spacji
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Wyswietl(tablicaZnakow);
+            form2.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.Wyswietl(tablicaZnakow);
+            form3.Show();
         }
     }
 }
