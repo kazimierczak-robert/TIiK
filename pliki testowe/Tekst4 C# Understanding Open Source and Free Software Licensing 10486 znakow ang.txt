@@ -1,0 +1,135 @@
+CHAPTER 1
+Open Source Licensing,
+Contract, and
+Copyright Law
+Open source licensing and development approaches have been challenging and
+transforming software development for decades. Although open source licensing is
+often described as radical, it is built on solid, traditional legal foundations, including
+the rights granted by copyright under the law of the United States (and elsewhere),
+and the ways in which basic contract principles can alter and supersede those rights.
+Basic Principles of Copyright Law
+Under the laws of the United States (and of European countries, through the Berne
+Convention, and of members of the World Trade Organization through the WTO
+Agreement on Trade-Related Aspects of Intellectual Property Rights), copyright is
+automatically attached to every novel expression of an idea, whether through text,
+sounds, or imagery. For example, the words in this paragraph are protected by copyright
+as soon as they are written. This also applies to diary entries, letters, song lyrics,
+and drawings, even if they are only done “off the cuff,” in the most casual of
+circumstances.
+For example, a drawing of a dog made on a café napkin is copyrighted simultaneously
+with its creation and is the sole property—barring any contractual abrogation
+of the copyright—of its creator. This drawing cannot be copied, displayed, or
+otherwise commercially exploited by any person other than the creator for the life of
+the copyright. Among other things, no person other than the creator has the right
+under copyright law to create “derivative works”—works that depend upon or
+develop from the original, copyrighted work. This limitation is of particular significance
+to open source licensing, as will be explained later. In the United States, the
+period protected by copyright is very long indeed: the life of the creator plus 70
+years, or in the case of works made “for hire” or by creators who are not identified,
+95 years from the date of publication or 120 years from the date of creation, whichever
+is shorter.
+This does not mean, of course, that the creator of this drawing has a monopoly on
+the depiction of dogs. Copyright law does not protect any particular idea. Rather,
+copyright protects only the expression of that idea. The creator of the dog drawing
+has a right to the commercial exploitation of only that particular expression of “dog.”
+This right is no limitation on the right of others to create, and to commercially
+exploit, their own expressions of “dog,” whether through drawing or other media.
+This limitation to expressions excludes protection from copyright of creations that
+are not expressed in a tangible, reproducible medium. For example, a dramatic
+monologue read on a street corner is not protected by copyright. However, if a reading
+of that monologue is recorded, whether on audio or videotape or paper, it is subject
+to copyright protection.
+This limitation to the expressions of an idea is the principal distinction
+between the applications of patent and copyright. Unlike copyright,
+a valid patent does not protect the expression of an idea but the
+underlying substance of it. For example, a patent applicable to a
+microchip protects not the expression of the chip itself, or the electrical
+diagram describing it, but the idea that given circuits can be organized
+and made to operate in a particular way. Because of their
+potentially vast scope, patents are construed more strictly, require a
+registration process, and last for shorter periods than copyrights.
+A copyright does not need to be registered to be legally effective. As already noted, a
+copyright comes into force when the protected work is created. While registration of
+the work with the United States Copyright Office has some effect on the rights of the
+copyright holder, it is not required. Moreover, while works published previous to
+March 1, 1989 need to bear explicit notice of copyright protection or risk losing that
+protection, works published after that date do not. Nonetheless, use of a copyright
+notice alerts potential infringers that the work falls under the protection of copyright.
+The vesting of copyright protection in the creator of a work is subject to two important
+limitations: the doctrines of “work for hire” and “fair use.” Works that are made
+“for hire” are made by an employee in the scope of his or her employment by
+another, including those that are specially commissioned for use in another work or
+as a supplement to another work, such as a translation. Works that are created “for
+hire” are still subject to copyright protection, under the same terms as described
+above, but the copyright belongs to the employer of the creator, or the person who
+commissioned the work, not the creator.
+The doctrine of “fair use” defines certain uses of copyrighted material as non-infringing.
+“Fair use” allows persons other than the creator to make certain limited uses of
+the copyrighted material for purposes of commenting upon or criticizing the work,
+reporting, or teaching related to the copyrighted material. “Fair use” is a flexible
+standard, and whether a particular use is considered “fair” depends in substantial
+part on the extent to which that use impedes the copyright holder’s exclusive rights
+to commercially exploit the work. In addition, one additional category of work is
+held to be non-infringing. A “transformative derivative work” is one that, although
+based on a copyrighted work, so fundamentally alters it that a new work results.
+Such a “transformative derivative work” is considered a new work for copyright purposes,
+and the holder of the copyright of the work—from which such a “transformative
+derivative work” is derived—has no rights over it.
+Finally, the protections of copyright are subject to one more important limitation:
+time. Copyrighted works are protected for a set period of time, measured either from
+the death of their creator or from the date of their creation. After the expiration of
+that period of time, the copyright protection on the work lapses as the work goes
+into the “public domain.”
+Works currently in the public domain include thousands of songs and musical
+works, novels, poems, stories, and histories written before the twentieth century.
+Anyone is free to commercially exploit such works by selling copies of those works,
+creating derivative works based upon them, and by distribuing or displaying the
+work publicly.
+Contract and Copyright
+In the United States, all of the rights belonging to the creator of a work become theirs
+at the time of the completion of that work in a fixed medium. No registration is
+required, nor does any signed writing need to be executed in order to preserve those
+rights. Rather, these rights arise entirely from the operation of the statutory law.
+Creators rarely take advantage of these rights by themselves, however. The production
+and distribution of works on a large scale has historically been capital-intensive,
+so creators of works have generally relied on others to produce the physical copies of
+their works and distribute them. The idea of copyright developed in parallel with the
+development of the printing press in the fifteenth century, and it originally protected
+the rights of printers to exclusively exploit works that they had commissioned. Legal
+enforcement, and, in particular, international legal enforcement, being what it was in
+the fifteenth and sixteenth centuries, copyrights were frequently disregarded. Of
+course, given the systematic violation of copyrights in many parts of the world today,
+it can be argued that the situation has not changed that much.
+The relationship between the creator of a work and its publisher is often an uneasy
+one. The creator, naturally, wishes to retain both control over the use of the work
+and the income stream derived from commercial exploitation of the work. The publisher,
+whether a book company, a record label, or a film studio—to take three common
+examples—similarly wishes to retain exactly those same things: control over
+and income from the work. Because publishing (in whatever format) is a capitalintensive
+business, the dynamic tends to strongly favor the publisher over the creator
+of the work, except in the exceptional case of creators who have both a proven
+track record of generating income from their work and, perhaps more importantly,
+the ability to negotiate without restriction. The case of musicians and their battles
+with record labels is particularly well-known.
+The most typical trade made between creators and publishers is the licensing of the
+work in exchange for payments, known as royalties. In the case of books, authors are
+generally entitled to royalties on every copy sold by the publisher. Music royalties are
+more complicated because there are more venues in which music can be sold or publicly
+performed, but the principle is the same. Royalties are generally owed to the
+songwriter for every copy of an album sold (mechanical royalties), for play on jukeboxes
+or on the radio (performance royalties), and for use on television or in films
+(synchronization royalties).
+Software publishing, the subject with which this book is primarily concerned, generally
+does not involve the payment of royalties to individuals. Because commercial
+software is made, as a general matter, by large teams of people and requires the substantial
+expenditure of capital, the resulting work is “work for hire.” As already discussed,
+the copyright of such works belongs to the employer, which, in the case of
+software, is usually also the publisher and the distributor of the software itself.
+In general, under the American copyright system an effective monopoly is vested in
+the creator of each work, subject to relatively few limitations. However, for a number
+of reasons, most of them having to do with the substantial costs of developing
+and distributing work in a mass-market medium, rights held under copyright are
+rarely enforced by the work’s creator and very little, if any, of the benefit of the copyright
+goes to that person. Rather, because of the negotiation of contracts by publishers
+with the creator or through the doctrine of work for hire, the benefits of copyright
+flow to the corporations that distribute the work, not the people who create it.

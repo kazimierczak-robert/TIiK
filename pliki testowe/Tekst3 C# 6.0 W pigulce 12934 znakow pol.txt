@@ -1,0 +1,248 @@
+Implementowanie interfejsów przeliczeniowych
+Interfejsy IEnumerable i IEnumerable<T> można zaimplementować z następujących powodów:
+􀁸 aby umożliwić korzystanie z instrukcji foreach;
+􀁸 aby zapewnić możliwość współpracy ze wszystkim, co oczekuje standardowej kolekcji;
+􀁸 aby spełnić wymagania bardziej zaawansowanego interfejsu kolekcji;
+􀁸 aby obsługiwać inicjalizatory kolekcji.
+Aby zaimplementować interfejs IEnumerable lub IEnumerable<T>, należy dostarczyć enumerator.
+Można to zrobić na jeden z trzech sposobów:
+􀁸 jeżeli klasa „opakowuje” inną kolekcję, można zwrócić enumerator tej opakowanej kolekcji;
+􀁸 przez iterator za pomocą instrukcji yield return;
+􀁸 tworząc własną implementację interfejsu IEnumerable lub IEnumerable<T>.
+Można też utworzyć podklasę istniejącej kolekcji. Klasa Collection<T> służy właśnie
+do tego celu (zob. podrozdział „Kolekcje i pośredniki z możliwością dostosowywania”).
+Inną możliwością jest użycie operatorów zapytań LINQ, o których mowa w następnym
+rozdziale.
+Zwrócenie enumeratora innej kolekcji jest zaledwie kwestią wywołania metody GetEnumerator na
+wewnętrznej kolekcji. Jednak takie rozwiązanie jest możliwe jedynie w najprostszych przypadkach,
+gdy elementy wewnętrznej kolekcji są dokładnie tym, czym powinny być. Bardziej elastyczne
+rozwiązanie polega na napisaniu iteratora przy użyciu instrukcji yield return. Iterator to element
+języka C# pomocny w pisaniu kolekcji na podobnej zasadzie, jak instrukcja foreach jest pomocna
+w ich konsumowaniu. Iterator automatycznie rozwiązuje kwestię implementacji interfejsów IEnumerable
+i IEnumerator lub ich generycznych wersji. Oto prosty przykład:
+public class MyCollection : IEnumerable
+{
+int[] data = { 1, 2, 3 };
+public IEnumerator GetEnumerator()
+{
+foreach (int i in data)
+yield return i;
+}
+}
+Zwróć uwagę na zawartą w tym kodzie „czarną magię” — metoda GetEnumerator nie wygląda tak,
+jakby miała zwracać enumerator! Kompilator, parsując instrukcję yield return, tworzy ukrytą zagnieżdżoną
+klasę enumeratora, a następnie refaktoryzuje metodę GetEnumerator w taki sposób,
+aby tworzyła i zwracała egzemplarz tej klasy. Iteratory są proste i potężne (i często znajdują zastosowanie
+w implementacji standardowych operatorów zapytań LINQ to Object).
+Zgodnie z tą linią możemy też zaimplementować generyczny interfejs IEnumerable<T>:
+public class MyGenCollection : IEnumerable<int>
+{
+int[] data = { 1, 2, 3 };
+public IEnumerator<int> GetEnumerator()
+{
+foreach (int i in data)
+yield return i;
+}
+IEnumerator IEnumerable.GetEnumerator() // jawna implementacja
+{ // ukrywa go
+return GetEnumerator();
+}
+}
+Jako że interfejs IEnumerable<T> dziedziczy po IEnumerable, musimy zaimplementować zarówno
+generyczną, jak i niegeneryczną wersję metody GetEnumerator. Dodatkowo zgodnie ze standardową
+praktyką zaimplementowaliśmy też jawnie niegeneryczną wersję. Może ona po prostu wywoływać
+generyczną metodę GetEnumerator, ponieważ interfejs IEnumerator<T> dziedziczy po IEnumerator.
+Napisana przez nas klasa mogłaby zostać wykorzystana jako baza do napisania bardziej zaawansowanej
+kolekcji. Jeśli jednak potrzebna jest tylko prosta implementacja interfejsu IEnumerable<T>,
+instrukcja yield return umożliwia skorzystanie z prostszego rozwiązania. Zamiast pisać klasę, logikę
+iteracji można umieścić w metodzie zwracającej generyczną kolekcję typu IEnumerable<T> i resztę
+zostawić kompilatorowi. Oto przykład:
+public class Test
+{
+public static IEnumerable <int> GetSomeIntegers()
+{
+yield return 1;
+yield return 2;
+yield return 3;
+}
+}
+A oto przykład użycia naszej metody:
+foreach (int i in Test.GetSomeIntegers())
+Console.WriteLine (i);
+// wynik
+1
+2
+3
+Ostatnim sposobem napisania metody GetEnumerator jest napisanie klasy bezpośrednio implementującej
+interfejs IEnumerator. Dokładnie to robi kompilator niejawnie, przy rozpoznawaniu iteratorów.
+(Na szczęście nieczęsto trzeba posuwać się tak daleko we własnym kodzie). Poniżej znajduje się
+przykład kolekcji z wpisanymi na stałe wartościami 1, 2 i 3:
+public class MyIntList : IEnumerable
+{
+int[] data = { 1, 2, 3 };
+public IEnumerator GetEnumerator()
+{
+return new Enumerator (this);
+}
+class Enumerator : IEnumerator // definicja wewn􀄊trznej klasy
+{ // dla enumeratora
+MyIntList collection;
+int currentIndex = -1;
+public Enumerator (MyIntList collection)
+{
+this.collection = collection;
+}
+public object Current
+{
+get
+{
+if (currentIndex == -1)
+throw new InvalidOperationException ("Enumeracja nie zosta􀃯a rozpocz􀃚ta!");
+if (currentIndex == collection.data.Length)
+throw new InvalidOperationException ("Za ko􀃱cem listy!");
+return collection.data [currentIndex];
+}
+}
+public bool MoveNext()
+{
+if (currentIndex >= collection.data.Length - 1) return false;
+return ++currentIndex < collection.data.Length;
+}
+public void Reset() { currentIndex = -1; }
+}
+}
+Implementacja metody Reset jest nieobowiązkowa — ewentualnie można zgłaszać
+wyjątek NotSupportedException.
+Podkreślmy, że pierwsze wywołanie metody MoveNext powinno powodować przejście do pierwszego
+(a nie drugiego) elementu listy.
+Aby uzyskać funkcjonalność zbliżoną do iteratora, musimy jeszcze dodatkowo zaimplementować interfejs
+IEnumerator<T>. Poniżej przedstawiamy przykład z pominięciem testów granic dla uproszczenia:
+class MyIntList : IEnumerable<int>
+{
+int[] data = { 1, 2, 3 };
+// Generyczny enumerator jest zgodny zarówno z IEnumerable, jak i IEnumerable<T>.
+// Implementujemy niegeneryczn􀄅 metod􀄊 GetEnumerator jawnie, aby unikn􀄅􀃼 konfliktów nazw.
+public IEnumerator<int> GetEnumerator() { return new Enumerator(this); }
+IEnumerator IEnumerable.GetEnumerator() { return new Enumerator(this); }
+class Enumerator : IEnumerator<int>
+{
+int currentIndex = -1;
+MyIntList collection;
+public Enumerator (MyIntList collection)
+{
+this.collection = collection;
+}
+public int Current => collection.data [currentIndex];
+object IEnumerator.Current => Current;
+public bool MoveNext() => ++currentIndex < collection.data.Length;
+public void Reset() => currentIndex = -1;
+// Je􀄞li nie jest potrzebna metoda Dispose, to dobrym zwyczajem jest jej
+// jawne zaimplementowanie tak, aby by􀃡a niedost􀄊pna w interfejsie publicznym.
+void IDisposable.Dispose() {}
+}
+}
+Przykład z użyciem typów generycznych jest szybszy, ponieważ metoda IEnumerator<int>.Current
+nie wymaga rzutowania z int na object, a więc eliminuje pakowanie.
+Interfejsy ICollection i IList
+Choć interfejsy enumeracyjne stanowią protokół iteracji kolekcji tylko do przodu, nie zapewniają
+możliwości sprawdzania rozmiaru kolekcji, dostępu do składowych za pomocą indeksów, przeszukiwania
+struktur danych ani ich modyfikowania. Wszystkie te funkcje zapewniają interfejsy .NET
+Framework ICollection, IList oraz IDictionary. Każdy z nich występuje w wersji generycznej i niegenerycznej,
+choć te drugie istnieją głównie ze względu na zgodność ze starym kodem.
+Hierarchia dziedziczenia tych interfejsów jest pokazana na rysunku 7.1. Najprościej można je podsumować
+w następujący sposób:
+IEnumerable<T> (i IEnumerable)
+Zapewnia minimalną funkcjonalność (tylko przeglądanie).
+ICollection<T> (i ICollection)
+Zapewnia średni poziom funkcjonalności (np. własność Count).
+IList <T>/IDictionary <K,V> i ich niegeneryczne wersje
+Zapewnia najwyższy poziom funkcjonalności (wliczając dostęp „swobodny” przy użyciu indeksów
+i kluczy).
+Konieczność implementowania któregokolwiek z tych interfejsów jest rzadkością.
+Gdy trzeba napisać klasę kolekcji, to prawie zawsze można wykorzystać do tego klasę bazową
+Collection<T> (zob. podrozdział „Kolekcje i pośredniki z możliwością dostosowywania”).
+W niektórych przypadkach inną możliwość zapewnia też technologia LINQ.
+Różnice między wersjami generycznymi i niegenerycznymi są większe niż można się spodziewać,
+zwłaszcza w przypadku interfejsu ICollection. Przyczyny tego są w głównej mierze historyczne — typy
+generyczne powstały później, więc interfejsy generyczne tworzono z pewnym bagażem doświadczenia,
+dzięki czemu udało się dobrać inne (i lepsze) składowe. Dlatego właśnie interfejs ICollection<T> nie
+rozszerza interfejsu ICollection, IList<T> nie rozszerza interfejsu IList, a IDictionary<TKey,
+TValue> nie rozszerza interfejsu IDictionary. Oczywiście klasa kolekcji może implementować obie
+wersje interfejsu, jeśli jest to korzystne (a często jest).
+Innym, mniej oczywistym powodem, dla którego IList<T> nie rozszerza interfejsu
+IList, jest to, że rzutowanie na IList<T> zwracałoby interfejs ze składowymi Add(T)
+i Add(object). To z kolei oznaczałoby zniweczenie bezpieczeństwa typowego, ponieważ
+można byłoby wywołać metodę Add z obiektem dowolnego typu.
+W tym podrozdziale są opisane interfejsy ICollection<T>, IList<T> i ich niegeneryczne wersje.
+Opis interfejsów słownikowych znajduje się w podrozdziale „Słowniki”.
+W obrębie platformy .NET Framework słowa kolekcja i lista są używane bez dającej
+się uchwycić logiki. Na przykład interfejs IList<T> jest bardziej funkcjonalną wersją
+interfejsu ICollection<T>, więc można oczekiwać, że klasa List<T> będzie tak samo
+bardziej funkcjonalna niż klasa Collection<T>. Jednak tak nie jest. Dlatego terminy
+kolekcja i lista najlepiej traktować jako synonimy, chyba że chodzi o konkretny typ.
+Interfejsy ICollection<T> i ICollection
+ICollection<T> to standardowy interfejs dla policzalnych kolekcji obiektów. Zapewnia możliwość
+sprawdzenia rozmiaru kolekcji (Count), sprawdzenia, czy dany element znajduje się w kolekcji
+(Contains), skopiowania kolekcji do tablicy (ToArray) oraz stwierdzenia, czy strukturę można modyfikować
+(IsReadOnly). W przypadku kolekcji z możliwością zapisu dostępne są także operacje Add,
+Remove i Clear. A ponieważ interfejs ten rozszerza IEnumerable<T>, kolekcje można przeglądać za
+pomocą instrukcji foreach:
+public interface ICollection<T> : IEnumerable<T>, IEnumerable
+{
+int Count { get; }
+bool Contains (T item);
+void CopyTo (T[] array, int arrayIndex);
+bool IsReadOnly { get; }
+void Add(T item);
+bool Remove (T item);
+void Clear();
+}
+Niegeneryczny interfejs ICollection także opisuje policzalną kolekcję, ale nie zapewnia funkcji
+do modyfikowania listy ani sprawdzania, czy zawiera określony element:
+public interface ICollection : IEnumerable
+{
+int Count { get; }
+bool IsSynchronized { get; }
+object SyncRoot { get; }
+void CopyTo (Array array, int index);
+}
+Niegeneryczny interfejs dodatkowo definiuje własności przydatne w synchronizacji (rozdział 14.)
+— wstawiono je do wersji generycznej, ponieważ bezpieczeństwo wątków nie jest już uważane za
+cechę wewnętrzną kolekcji.
+Implementacja obu interfejsów jest łatwa. W przypadku implementacji interfejsu tylko do odczytu
+ICollection<T> metody Add, Remove i Clear powinny zgłaszać wyjątek NotSupportedException.
+Z reguły interfejsy te implementuje się łącznie z IList lub IDictionary.
+Interfejsy IList<T> i IList
+IList<T> to standardowy interfejs kolekcji indeksowanych pozycyjnie. Oprócz składników odziedziczonych
+z interfejsów ICollection<T> i IEnumerable<T> zawiera funkcje pozwalające odczytywać,
+zapisywać (za pomocą indeksatora), wstawiać oraz usuwać elementy wg pozycji:
+public interface IList<T> : ICollection<T>, IEnumerable<T>, IEnumerable
+{
+T this [int index] { get; set; }
+int IndexOf (T item);
+void Insert (int index, T item);
+void RemoveAt (int index);
+}
+Metody IndexOf wykonują przeszukiwanie liniowe listy i zwracają wartość -1, jeśli nie znajdą
+szukanego elementu.
+Niegeneryczna wersja interfejsu IList ma więcej składowych, ponieważ mniej dziedziczy po
+ICollection:
+public interface IList : ICollection, IEnumerable
+{
+object this [int index] { get; set }
+bool IsFixedSize { get; }
+bool IsReadOnly { get; }
+int Add (object value);
+void Clear();
+bool Contains (object value);
+int IndexOf (object value);
+void Insert (int index, object value);
+void Remove (object value);
+void RemoveAt (int index);
+}
+Metoda Add niegenerycznego interfejsu IList zwraca liczbę całkowitą będącą indeksem nowo dodanego
+elementu. Dla porównania metoda Add interfejsu ICollection<T> ma typ zwrotny void.
+Ogólna klasa List<T> jest typową implementacją interfejsów IList<T> i IList. W języku C# także
+tablice implementują zarówno generyczną, jak i niegeneryczną wersję (choć metody dodające i usuwające
+elementy są ukryte przez jawną implementację interfejsu i w razie wywołania zgłaszają
+wyjątek NotSupportedException).

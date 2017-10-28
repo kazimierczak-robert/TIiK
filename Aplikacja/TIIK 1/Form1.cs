@@ -77,7 +77,6 @@ namespace TIIK_1
             {
                 if (Convert.ToInt32(tablicaZnakow[i, 1]) > 0)
                 {
-
                     ListViewItem item = new ListViewItem(tablicaZnakow[i, 0]);
                     item.SubItems.Add(tablicaZnakow[i, 1]);
                     item.SubItems.Add(tablicaZnakow[i, 2]);
@@ -108,7 +107,20 @@ namespace TIIK_1
                 tablicaZnakow[i, 3] = I_E.ToString("F6");
             }
         }
-      
+
+        private void obliczEntropieBinarna()
+        {
+            double H_S = 0.0;
+            //H(S) = sum(P(si) * I(si))
+            for (int i = 0; i < tablicaZnakow.GetLength(0); i++)
+            {
+                if (Double.Parse(tablicaZnakow[i, 2]) > 0)
+                {
+                    H_S += Double.Parse(tablicaZnakow[i, 2]) * Double.Parse(tablicaZnakow[i, 3]);
+                }
+            }
+            label4.Text = H_S.ToString("F6");
+        }
         private void buttonWczytajplik_Click(object sender, EventArgs e)
         {
             listView1.Items.Clear();
@@ -126,6 +138,7 @@ namespace TIIK_1
                 podzielNaZnaki(znaki);
                 obliczPrawdopodobienstwo(dlugoscCiaguZnakow);
                 obliczIloscInformacji();
+                obliczEntropieBinarna();
 
                 wypelnijListe();
                 label2.Text = (dlugoscCiaguZnakow - Convert.ToInt32(tablicaZnakow[66, 1])).ToString();
@@ -133,7 +146,5 @@ namespace TIIK_1
             }
             
         }
-
- 
     }
 }
