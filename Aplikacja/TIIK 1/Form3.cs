@@ -20,11 +20,13 @@ namespace TIIK_1
 
         public void Wyswietl(string[,] tab)
         {
+            double p = 0.1D;
             for (int i = 0; i < tab.GetLength(0); i++)
             {
+                p = Double.Parse(tab[i, 3]);
                 if (Convert.ToInt32(tab[i, 1]) > 0)
                 {
-                    this.chart1.Series["Ilosc informacji"].Points.AddXY(tab[i, 0], tab[i, 3]);
+                    this.chart1.Series["Ilosc informacji"].Points.AddXY(tab[i, 0], p);
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace TIIK_1
             {
                 if (Convert.ToInt32(tab[i, 1]) > 0)
                 {
-                    this.chart2.Series["Wystapienia"].Points.AddXY(tab[i, 0], tab[i, 1]);
+                    this.chart2.Series["Liczba wystąpień"].Points.AddXY(tab[i, 0], tab[i, 1]);
                 }
             }
         }

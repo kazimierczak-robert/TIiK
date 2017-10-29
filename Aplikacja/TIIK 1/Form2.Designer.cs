@@ -41,6 +41,7 @@
             chartArea1.AxisX.IsLabelAutoFit = false;
             chartArea1.AxisX.LabelStyle.IsStaggered = true;
             chartArea1.AxisX.LabelStyle.TruncatedLabels = true;
+            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea1.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea1);
             this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -52,7 +53,7 @@
             series1.Legend = "Legend1";
             series1.MarkerSize = 1;
             series1.MarkerStep = 5;
-            series1.Name = "Wystapienia";
+            series1.Name = "Liczba wystąpień";
             this.chart2.Series.Add(series1);
             this.chart2.Size = new System.Drawing.Size(1269, 534);
             this.chart2.TabIndex = 7;
