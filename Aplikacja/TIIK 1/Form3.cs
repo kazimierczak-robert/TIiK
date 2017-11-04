@@ -18,16 +18,25 @@ namespace TIIK_1
             this.Text = "Wykres ilości informacji";
         }
 
-        public void Wyswietl(string[,] tab)
+        public bool Wyswietl(string[,] tab)
         {
-            double p = 0.1D;
-            for (int i = 0; i < tab.GetLength(0); i++)
+            if (tab.GetValue(0, 0) == null)
             {
-                p = Double.Parse(tab[i, 3]);
-                if (Convert.ToInt32(tab[i, 1]) > 0)
+                MessageBox.Show("Nie wczytano pliku!", "Uwaga");
+                return false;
+            }
+            else
+            {
+                double p = 0.1D;
+                for (int i = 0; i < tab.GetLength(0); i++)
                 {
-                    this.chart1.Series["Ilosc informacji"].Points.AddXY(tab[i, 0], p);
+                    p = Double.Parse(tab[i, 3]);
+                    if (Convert.ToInt32(tab[i, 1]) > 0)
+                    {
+                        this.chart1.Series["Ilosc informacji"].Points.AddXY(tab[i, 0], p);
+                    }
                 }
+                return true;
             }
         }
     }

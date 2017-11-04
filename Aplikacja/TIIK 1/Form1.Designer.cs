@@ -46,7 +46,7 @@
             // buttonWczytajplik
             // 
             this.buttonWczytajplik.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonWczytajplik.Location = new System.Drawing.Point(16, 324);
+            this.buttonWczytajplik.Location = new System.Drawing.Point(12, 324);
             this.buttonWczytajplik.Name = "buttonWczytajplik";
             this.buttonWczytajplik.Size = new System.Drawing.Size(161, 46);
             this.buttonWczytajplik.TabIndex = 0;
@@ -90,10 +90,6 @@
             // 
             this.IloscInformacji.Text = "Ilość informacji [bitów]";
             this.IloscInformacji.Width = 115;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // label1
             // 
@@ -162,7 +158,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(439, 434);
+            this.ClientSize = new System.Drawing.Size(431, 434);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
@@ -171,7 +167,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.buttonWczytajplik);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

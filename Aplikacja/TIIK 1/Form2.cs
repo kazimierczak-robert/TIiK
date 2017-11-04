@@ -19,20 +19,24 @@ namespace TIIK_1
             
         }
         
-        public void Wyswietl(string [,] tab)
+        public bool Wyswietl(string [,] tab)
         {
-            for (int i = 0; i < tab.GetLength(0); i++)
+            if (tab.GetValue(0, 0) == null)
             {
-                if (Convert.ToInt32(tab[i, 1]) > 0)
-                {
-                    this.chart2.Series["Liczba wystąpień"].Points.AddXY(tab[i, 0], tab[i, 1]);
-                }
+                MessageBox.Show("Nie wczytano pliku!", "Uwaga");
+                return false;
             }
-        }
-
-        private void chart2_Click(object sender, EventArgs e)
-        {
-
+            else
+            {
+                for (int i = 0; i < tab.GetLength(0); i++)
+                {
+                    if (Convert.ToInt32(tab[i, 1]) > 0)
+                    {
+                        this.chart2.Series["Liczba wystąpień"].Points.AddXY(tab[i, 0], tab[i, 1]);
+                    }
+                }
+                return true;
+            }
         }
     }
 }

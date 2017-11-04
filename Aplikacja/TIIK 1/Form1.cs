@@ -121,14 +121,14 @@ namespace TIIK_1
         }
         private void buttonWczytajplik_Click(object sender, EventArgs e)
         {
-            listView1.Items.Clear();
-            zerujTablice();
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                listView1.Items.Clear();
+                zerujTablice();
                 System.IO.StreamReader sr = new
                    System.IO.StreamReader(openFileDialog1.FileName, Encoding.GetEncoding("Windows-1250"));
                 String znaki = sr.ReadToEnd();
-                MessageBox.Show("Plik wczytano pomyślnie.");
+                MessageBox.Show("Plik wczytano pomyślnie", "Informacja");
                 sr.Close();
 
                 int dlugoscCiaguZnakow = znaki.Length;
@@ -148,15 +148,21 @@ namespace TIIK_1
         private void button1_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
-            form2.Wyswietl(tablicaZnakow);
-            form2.Show();
+            bool result = form2.Wyswietl(tablicaZnakow);
+            if (result == true)
+            {
+                form2.Show();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3();
-            form3.Wyswietl(tablicaZnakow);
-            form3.Show();
+            bool result = form3.Wyswietl(tablicaZnakow);
+            if (result == true)
+            {
+                form3.Show();
+            }
         }
     }
 }
