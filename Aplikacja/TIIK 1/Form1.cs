@@ -119,6 +119,22 @@ namespace TIIK_1
             }
             label4.Text = H_S.ToString("F6");
         }
+        private void zapiszDoPliku(string path, int column)
+        {
+            //textBox1.Text = "Znaki: " + (znaki.Length-Convert.ToInt32(tablicaZnakow[66,1])); //znaki bez spacji
+            //Save results to file
+            /*tablicaZnakow[i, 0] = alfabet[i];
+            tablicaZnakow[i, 1];//liczba
+            tablicaZnakow[i, 2];//prawdopodobientswo
+            tablicaZnakow[i, 3];//ilosc informacji*/
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            {
+                for (int i = 0; i < tablicaZnakow.GetLength(0); i++)
+                {
+                    file.WriteLine(tablicaZnakow[i, column]);
+                }
+            }
+        }
         private void buttonWczytajplik_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -140,9 +156,19 @@ namespace TIIK_1
 
                 wypelnijListe();
                 label2.Text = (dlugoscCiaguZnakow - Convert.ToInt32(tablicaZnakow[66, 1])).ToString();
-                //textBox1.Text = "Znaki: " + (znaki.Length-Convert.ToInt32(tablicaZnakow[66,1])); //znaki bez spacji
+
+                string path = "..\\..\\..\\..\\wyniki\\";
+                //Utworzenie folderu o nazwie pliku
+                string dirName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
+                string dirPath = path + dirName;
+                System.IO.Directory.CreateDirectory(dirPath);
+                //Zapis wynikow do pliku
+                zapiszDoPliku(dirPath + "\\alfabet.txt", 0);//alfabet
+                zapiszDoPliku(dirPath + "\\liczbaWystapien.txt", 1);//liczba wystapien
+                zapiszDoPliku(dirPath + "\\prawdopodobienstwo.txt", 2);//prawdopodobienstwo
+                zapiszDoPliku(dirPath + "\\iloscInformacji.txt", 3);//ilosc informacji
+
             }
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
