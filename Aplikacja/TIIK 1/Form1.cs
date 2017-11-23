@@ -23,39 +23,52 @@ namespace TIIK_1
         }
 
         // tablica przechowujaca wystapienia poszczegolnych liter
-        string[,] tablicaZnakow = new string[85, 4];
-
-        // tablica przechowujaca znaki ktore sa brane pod uwage przy zliczaniu, 85 elementow (0-84)
-                        //   0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32
-        string[] alfabet = {"a","ą","b","c","ć","d","e","ę","f","g","h","i","j","k","l","ł","m","n","o","ó","q","p","r","s","ś","t","u","w","x","y","z","ż","ź",
-                            "A","Ą","B","C","Ć","D","E","Ę","F","G","H","I","J","K","L","Ł","M","N","O","Ó","Q","P","R","S","Ś","T","U","W","X","Y","Z","Ż","Ź"," ",".",",","?","!","(",")","-",";",":","[","]","{","}","'","`","%","&","\""};
-                                                                                                                                                             //  66 (spacja)
+        string[,] tablicaZnakow = new string[0, 4];
 
         // przypisywanie alfabetu do tablicy znakow, pierwszy element tablicy litera z alfabetu, drugi element wypelnianie zerem
         void zerujTablice()
         {
-            for (int i = 0; i < tablicaZnakow.GetLength(0); i++)
+            tablicaZnakow = new string[0, 4];
+        }
+
+        string[,] EnlargeArray(string[,] original)
+        {
+            string[,] newArray = new string[original.GetLength(0) + 1, 4];
+
+            for (int i = 0; i < original.GetLength(0); i++)
             {
-                tablicaZnakow[i, 0] = alfabet[i];
-                tablicaZnakow[i, 1] = "0";
-                tablicaZnakow[i, 2] = "0";
-                tablicaZnakow[i, 3] = "0";//ilosc informacji
+                for (int j = 0; j < 4; j++)
+                {
+                    newArray[i, j] = original[i, j];
+                }
             }
+            return newArray;
         }
 
         // obliczanie wystapien poszczegolnych liter w tekscie
         void podzielNaZnaki(string tekst)
         {
+            bool isFound = false;
             for(int i = 0; i<tekst.Length;i++)
             {
-                for (int j = 0; j < tablicaZnakow.GetLength(0);j++)
+                isFound = false;
+                for (int j = 0; j < tablicaZnakow.GetLength(0); j++)
                 {
                     if (tekst[i].ToString() == tablicaZnakow[j, 0])
                     {
                         int wystapienia = Convert.ToInt32(tablicaZnakow[j, 1]);
                         tablicaZnakow[j, 1] = (wystapienia + 1).ToString();
+                        isFound = true;
                         break;
                     }
+                }
+                if(isFound == false)
+                {
+                    tablicaZnakow = EnlargeArray(tablicaZnakow);
+                    tablicaZnakow[tablicaZnakow.GetLength(0) - 1, 0] = tekst[i].ToString();
+                    tablicaZnakow[tablicaZnakow.GetLength(0) - 1, 1] = "1";
+                    tablicaZnakow[tablicaZnakow.GetLength(0) - 1, 2] = "0";
+                    tablicaZnakow[tablicaZnakow.GetLength(0) - 1, 3] = "0";
                 }
             }
         }
@@ -155,7 +168,7 @@ namespace TIIK_1
                 obliczEntropieBinarna();
 
                 wypelnijListe();
-                label2.Text = (dlugoscCiaguZnakow - Convert.ToInt32(tablicaZnakow[66, 1])).ToString();
+                label2.Text = dlugoscCiaguZnakow.ToString();
 
                 string path = "..\\..\\..\\..\\wyniki\\";
                 //Utworzenie folderu o nazwie pliku
