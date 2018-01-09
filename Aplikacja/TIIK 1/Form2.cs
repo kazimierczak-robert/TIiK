@@ -21,9 +21,9 @@ namespace TIIK_1
         
         public bool Wyswietl(string [,] tab)
         {
-            if (tab.GetValue(0, 0) == null)
+            if (tab.GetLength(0) == 0)
             {
-                MessageBox.Show("Nie wczytano pliku!", "Uwaga");
+                MessageBox.Show("Nie wczytano pliku do analizy!", "Uwaga");
                 return false;
             }
             else
